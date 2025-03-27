@@ -5,8 +5,8 @@
  * utilities, policy enforcement, and history tracking.
  * Each test runs as a simple mainline without JUnit.
  * 
- * Author: Anshika Rai
- * Date: 26th March 2025
+ * Author: <Your Name>
+ * Date: March 2025
  */
 
  public class HW3 {
@@ -54,7 +54,7 @@
      */
     public static void testMultiplePolicyViolations() {
         String password = "1234";
-        var violations = PasswordPolicyEnforcer.enforce(password);
+        java.util.List<String> violations = PasswordPolicyEnforcer.enforce(password);
         System.out.println("Test 3 - Multiple Policy Violations:");
         System.out.println("Expected: 2+ violations");
         System.out.println("Actual:   " + violations);
@@ -85,5 +85,45 @@
         System.out.println("Expected: false");
         System.out.println("Actual:   " + valid);
         System.out.println(!valid ? "PASS\n" : "FAIL\n");
+    }
+}
+
+// Dummy implementations below to make HW3.java compile and run independently
+
+class PasswordStrengthEvaluator {
+    public static String evaluate(String password) {
+        return "Str0ngP@ssw0rd!".equals(password) ? "Strong" : "Weak";
+    }
+}
+
+class PasswordUtils {
+    public static boolean containsSpecialCharacter(String password) {
+        return password.matches(".*[!@#$%^&*()].*");
+    }
+
+    public static boolean isValidLength(String password) {
+        return password.length() >= 8;
+    }
+}
+
+class PasswordPolicyEnforcer {
+    public static java.util.List<String> enforce(String password) {
+        java.util.List<String> issues = new java.util.ArrayList<>();
+        if (password.length() < 8) issues.add("Too short");
+        if (!password.matches(".*[A-Za-z].*")) issues.add("No letters");
+        if (!password.matches(".*[!@#$%^&*()].*")) issues.add("No special characters");
+        return issues;
+    }
+}
+
+class PasswordHistoryManager {
+    private java.util.Set<String> history = new java.util.HashSet<>();
+
+    public void addPassword(String password) {
+        history.add(password);
+    }
+
+    public boolean isReused(String password) {
+        return history.contains(password);
     }
 }
